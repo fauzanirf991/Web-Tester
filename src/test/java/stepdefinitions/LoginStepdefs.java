@@ -1,3 +1,5 @@
+package stepdefinitions;
+
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.And;
@@ -14,7 +16,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class LoginStepdefs {
     private WebDriver driver;
-    @Test
+    String baseUrl = "https://www.saucedemo.com/";
+
     @Before
     public void initializeDriver() {
         WebDriverManager.chromedriver().setup();
@@ -22,7 +25,7 @@ public class LoginStepdefs {
     }
     @Given("User on the login page")
     public void userOnTheLoginPage() {
-        driver.get("https://www.saucedemo.com/");
+        driver.get(baseUrl);
     }
 
     @And("user fill in the User Name as {string}")
@@ -37,12 +40,12 @@ public class LoginStepdefs {
 
     @When("user click on the Log In button")
     public void userClickOnTheLogInButton() {
-        driver.findElement(By.id("login_button")).click();
+        driver.findElement(By.className("submit-button")).click();
     }
 
     @Then("user get a message {string}")
     public void userGetAMessage(String message) {
-        assertEquals(driver.findElement(By.id("loginstatus")).getText(), (message));
+        assertEquals(driver.findElement(By.tagName("h3")).getText(), (message));
     }
 
     @After
