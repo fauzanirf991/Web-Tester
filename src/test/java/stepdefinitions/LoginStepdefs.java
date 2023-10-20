@@ -7,6 +7,7 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.junit.Assert;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -43,6 +44,11 @@ public class LoginStepdefs {
         driver.findElement(By.className("submit-button")).click();
     }
 
+   @Then("user should be redirected to the dashboard page")
+    public void verifyRedirectToDashboard() {
+        String currentUrl = driver.getCurrentUrl();
+        Assert.assertTrue(currentUrl.contains("inventory.html"));
+    }
     @Then("user get a message {string}")
     public void userGetAMessage(String message) {
         assertEquals(driver.findElement(By.tagName("h3")).getText(), (message));
